@@ -20,10 +20,24 @@ export async function body(req: NextRequest) {
 }
 export function sameOrigin(req: NextRequest) {
   const origin = req.headers.get("origin");
-  const expected = process.env.APP_URL
-    ? new URL(process.env.APP_URL).origin
-    : req.nextUrl.origin;
-  ensure(origin === expected, "Request origin is not allowed.", 403);
+  // Build list of allowed origins
+  const allowed = new Set<string>();
+  // 1. Explicit APP_URL (primary)
+  if (process.env.APP_URL) {
+    try { allowed.add(new URL(process.env.APP_URL.trimEnd().replace(/\/$/, "")).origin); } catch {}
+  }
+  // 2. Vercel's auto-set deployment URL (covers preview + production deployments)
+  if (process.env.VERCEL_URL) {
+    allowed.add(`https://${process.env.VERCEL_URL}`);
+  }
+  if (process.env.VERCEL_BRANCH_URL) {
+    allowed.add(`https://${process.env.VERCEL_BRANCH_URL}`);
+  }
+  // 3. Fallback: same origin as the incoming request (local dev)
+  if (allowed.size === 0) {
+    allowed.add(req.nextUrl.origin);
+  }
+  ensure(origin !== null && allowed.has(origin), "Request origin is not allowed.", 403);
 }
 export async function requireUser() {
   ensure(
