@@ -1,0 +1,44 @@
+{
+  "name": "queueflow",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:verify": "tsx scripts/verify-postgres.ts",
+    "test:hosted": "tsx scripts/smoke-browser.ts",
+    "jobs": "tsx scripts/jobs.ts",
+    "test": "tsx --test tests/domain.test.ts",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "lucide-react": "^0.468.0",
+    "luxon": "^3.7.2",
+    "next": "16.3.8",
+    "nodemailer": "10.0.13",
+    "pg": "^8.16.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tsx": "^4.20.6",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.14",
+    "@playwright/test": "^1.56.1",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^24.0.0",
+    "@types/nodemailer": "^7.0.0",
+    "@types/pg": "^8.15.5",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.9.3"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}
