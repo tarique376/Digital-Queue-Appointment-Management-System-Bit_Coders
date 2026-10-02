@@ -21,6 +21,7 @@ Seeded accounts: `customer@queueflow.local`, `staff@queueflow.local`, `staff2@qu
 The implemented repository has `src/app` (Next.js pages/APIs), `src/components` (role-specific screens), `src/lib` (domain/auth/database/jobs), `database` (SQL migrations), `scripts`, `tests`, and `docs`. The separate frontend/backend directory tree in the original plan below is superseded by this single Next.js application.
 
 Verification: `npm run typecheck`, `npm test`, `npm run test:e2e`, and `npm run build`. Production startup: `npm start`. Use the committed lockfile with `npm ci` for reproducible versions.
+We have also deployed the website : https://digital-queue-appointment-managemen.vercel.app/
 
 Core features are implemented: accounts/roles, department/service schedules, capacity-safe booking, cancellation/rescheduling/delay, check-in, mixed walk-in/appointment queues, staff calling/recall/skip/start/complete, counter assignments/states, historical-duration wait estimates, notifications, reports, and audit logs. Live views refresh every five seconds with reconnection recovery. Email requires SMTP and the worker. Optional AI forecasting, SMS, native mobile apps, partial-day calendar overrides, and manual in-service transfers are not implemented.
 
